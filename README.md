@@ -7,8 +7,8 @@ it include 3 parts:
 
 
 ## Task List
-- [ ] Vorlesung 1 ： 
-      - have question to the parallel monte carlo parallel, why my code doesn't speedup?
-      - Try compiling with optimization flag -Ofast ? how？ 
+- [ ] Vorlesung 1 ：  <br>
+      - have question to the parallel monte carlo parallel, why my code doesn't speedup? <br>
+      - Try compiling with optimization flag -Ofast ? how？  <br>
 - [ ] Vorlesung 2
 - [ ] Vorlesung 3
