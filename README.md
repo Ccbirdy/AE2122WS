@@ -7,6 +7,6 @@ it include 3 parts:
 
 
 ## Task List
-- [ ] Vorlesung 1
+- [ ] Vorlesung 1 ： have question to the parallel monte carl parallel, why my code doesn't speedup?
 - [ ] Vorlesung 2
 - [ ] Vorlesung 3
