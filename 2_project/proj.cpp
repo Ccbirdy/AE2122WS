@@ -29,7 +29,7 @@ int main() {
     //Write the following variables to the output file
     fout << magic_number << endl << pixel_per_row << " " << num_rows << endl << color_depth << endl;
     //Read in input file until file end putting values into appropriate variables
-    int i, j, k1, k2;
+    int i, j, k1, k2, local_sum;
     vector<int> gray_pic(pixel_per_row*num_rows, 0);
     // convert rgb picture into gray scale
     for(i = 0; i < pixel_per_row*num_rows; i++ ){
@@ -41,7 +41,7 @@ int main() {
            
     cout<< "start pictrure enhancement" << endl;
     //Declare necessary variables for the adaptive_threshold_mean_C 
-    int filter_mask_size = 21, C = 0, pad_num_rows, pad_pixel_per_row;     
+    int filter_mask_size = 55, C = 10, pad_num_rows, pad_pixel_per_row;     
     int offset = filter_mask_size/2;
     // build filter mask
     float filter_mask = 1.0 /(filter_mask_size*filter_mask_size);
@@ -60,20 +60,20 @@ int main() {
     }
     
 
-    // Convolve
-    for(j=0; j< num_rows; j++){
-        int local_sum = 0;
+    // Convolve rhe padded image with filtermask (mean filter)
+    for(j=0; j< num_rows; j++){        
         for(i = 0; i< pixel_per_row; i++){
-            for ( k1 = 0; k1< offset; k1++){
-                for ( k2 = 0; k2< offset; k2++){
+            local_sum = 0;
+
+            for ( k1 = 0; k1< filter_mask_size; k1++){
+                for ( k2 = 0; k2< filter_mask_size; k2++){
                     local_sum += image_pad[i + j*pixel_per_row + k2 +k1*pixel_per_row];
                 }
             }
-            local_sum = local_sum * filter_mask;
-            local_sum = local_sum - C;
-
+            local_sum = local_sum * filter_mask - C;  
+            fout << local_sum << " ";        
             if (gray_pic[i+j*pixel_per_row] > local_sum){
-            convolved_image[i+j*pixel_per_row] = color_depth;            
+                convolved_image[i+j*pixel_per_row] = color_depth;            
             }
             else{
                 convolved_image[i+j*pixel_per_row] = 0;
