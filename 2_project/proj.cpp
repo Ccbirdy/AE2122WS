@@ -7,6 +7,10 @@
 
 
 //g++ -Ofast -std=c++11 -march=native -fopenmp proj.cpp -o proj
+//mkdir -p build
+//cmake -DCMAKE_CXX_COMPOLER=g++ -DCMAKE_BUILD_TYPR=Release ..
+// cmake --build .
+
 
 using namespace std;
 
@@ -48,7 +52,7 @@ int main() {
     int offset = filter_mask_size/2;
     // build filter mask
     float filter_mask = 1.0 /(filter_mask_size*filter_mask_size);
-    vector<int> convolved_image(gray_pic.size(), 0);
+    //vector<int> convolved_image(gray_pic.size(), 0);
     // Explicitly zero-pad the original image
     vector<int> pad_part(2*offset, 0);
     vector<int> image_pad(offset*pad_pixel_per_row + offset , 0);
@@ -83,10 +87,10 @@ int main() {
             local_sum = local_sum * filter_mask -C;                 
         
             if (gray_pic[i+j*pixel_per_row] > local_sum){
-            convolved_image[i+j*pixel_per_row] = color_depth;            
+            gray_pic[i+j*pixel_per_row] = color_depth;            
             }
             else{
-                convolved_image[i+j*pixel_per_row] = 0;
+                gray_pic[i+j*pixel_per_row] = 0;
             }
         }        
     }    
@@ -96,8 +100,7 @@ int main() {
     cout<< "start writing" << endl;
 
     //Write vector to output file
-    for(const auto &e : convolved_image) fout << e << " "<< e << " "<< e << " ";
-
+    for(const auto &e : gray_pic) fout << e << " "<< e << " "<< e << " ";
 
     cout << "finish writing: " << omp_get_wtime() - start << " seconds" << endl;
 
