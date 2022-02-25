@@ -61,6 +61,12 @@
         "typeinfo": "cpp",
         "complex": "cpp",
         "__nullptr": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "queue": "cpp",
+        "stack": "cpp",
+        "regex": "cpp",
+        "future": "cpp",
+        "shared_mutex": "cpp",
+        "variant": "cpp"
     }
 }
