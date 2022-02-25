@@ -7,5 +7,4 @@ it include 3 parts:
   - paper   : 4 page paper about the project
 
 
-## Task List
-- [ ] Vorlesung 1 ：  
+
