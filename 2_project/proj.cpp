@@ -5,11 +5,11 @@
 #include <vector>
 #include <omp.h>
 
-
-//g++ -Ofast -std=c++11 -march=native -fopenmp proj.cpp -o proj
-//mkdir -p build
-//cmake -DCMAKE_CXX_COMPOLER=g++ -DCMAKE_BUILD_TYPR=Release ..
-// cmake --build .
+// 1: convert in.jpg -compress none out.ppm  // convert jpg into ppm so c++ can easier read and process
+// compile: g++ -Ofast -std=c++11 -march=native -fopenmp proj.cpp -o proj
+//  mkdir -p build
+//  cmake -DCMAKE_CXX_COMPOLER=g++ -DCMAKE_BUILD_TYPR=Release ..
+//  cmake --build .
 
 
 using namespace std;
@@ -31,8 +31,8 @@ int main() {
     //Read in values for the following variables from input file
     fin >> magic_number >> pixel_per_row >> num_rows >> color_depth;
     //Write the following variables to the output file
-    fout << magic_number << endl;
-    fout << pixel_per_row << " " << num_rows << endl << color_depth << endl;
+    fout << magic_number << endl;  
+    fout << pixel_per_row << " " << num_rows << endl << color_depth << endl;   
     //Read in input file convert it in gray scale and save in vector
     int i, j, k1, k2, local_sum;
     vector<int> gray_pic(pixel_per_row*num_rows, 0);
@@ -43,16 +43,18 @@ int main() {
         //Covert each pixel to grayscale
         gray = int(0.2989 * red + 0.5870 * green + 0.1140 * blue);         
         gray_pic[i]=gray;
-    }    
+    }   
+   
     cout << "finish generate gray_sacle_image: " << omp_get_wtime() - start << " seconds" << endl;
-    cout<< "start pictrure enhancement" << endl;
-
+    cout<< " Start pictrure enhancement" << endl;
     //Declare necessary variables for the adaptive_threshold_mean_C 
     int filter_mask_size = 55, C = 10, pad_num_rows, pad_pixel_per_row;     
     int offset = filter_mask_size/2;
+    pad_num_rows = num_rows + 2 * offset;
+    pad_pixel_per_row = pixel_per_row + 2 * offset;
     // build filter mask
     float filter_mask = 1.0 /(filter_mask_size*filter_mask_size);
-    //vector<int> convolved_image(gray_pic.size(), 0);
+
     // Explicitly zero-pad the original image
     vector<int> pad_part(2*offset, 0);
     vector<int> image_pad(offset*pad_pixel_per_row + offset , 0);
@@ -66,8 +68,9 @@ int main() {
 #pragma omp ordered 
     for(i = 0; i< offset*pad_pixel_per_row - offset; i++) {
         image_pad.push_back(0);
-    }    
-
+    }   
+    
+    cout << "finish generate padding image: " << omp_get_wtime() - start << " seconds" << endl;
     // Convolve
 #pragma omp parallel for collapse(2) private(local_sum) 
 
@@ -79,7 +82,7 @@ int main() {
 
             for ( k1 = 0; k1< filter_mask_size; k1++){
                 for ( k2 = 0; k2< filter_mask_size; k2++){                    
-                    local_sum += image_pad[i + j*pixel_per_row + k2 +k1*pixel_per_row];
+                    local_sum += image_pad[i + j*pad_pixel_per_row + k2 +k1*pad_pixel_per_row];
                 }
             }
 
