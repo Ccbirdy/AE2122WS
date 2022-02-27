@@ -2,3 +2,20 @@
 *.tmp
 .ipynb_checkpoints
 reference
+
+# excutable files
+mrc
+ubl
+a3
+pi
+pishca
+mb
+ms
+proj
+.vscode/settings.json
+.Rhistory
+save.cpp
+pics
+build
+testing_with_catch
+exercise
