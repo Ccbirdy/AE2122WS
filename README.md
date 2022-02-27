@@ -8,6 +8,6 @@ it include 3 parts:
 
 
 ## please notice:
-in 3_paper, there are 2 pdf file, 
+in 3_paper, there are 2 pdf file, <br> 
 the one with (light) is a compressed version of the other one, for easier online preview
 
