@@ -1,2 +1,4 @@
 *.docx
 *.tmp
+.ipynb_checkpoints
+reference
