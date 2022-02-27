@@ -24,7 +24,7 @@ int main() {
         system("pause");
         return -1;  // Error exit
     }
-    const double start = omp_get_wtime();
+    //const double start = omp_get_wtime();
     //Declare necessary variables
     string magic_number;
     int pixel_per_row, num_rows, color_depth, red, green, blue, gray;
@@ -45,7 +45,7 @@ int main() {
         gray_pic[i]=gray;
     }   
    
-    cout << "finish generate gray_sacle_image: " << omp_get_wtime() - start << " seconds" << endl;
+    //cout << "finish generate gray_sacle_image: " << omp_get_wtime() - start << " seconds" << endl;
     cout<< " Start pictrure enhancement" << endl;
     //Declare necessary variables for the adaptive_threshold_mean_C 
     int filter_mask_size = 55, C = 10, pad_num_rows, pad_pixel_per_row;     
@@ -54,11 +54,12 @@ int main() {
     pad_pixel_per_row = pixel_per_row + 2 * offset;
     // build filter mask
     float filter_mask = 1.0 /(filter_mask_size*filter_mask_size);
-
+    const double start = omp_get_wtime();
     // Explicitly zero-pad the original image
     vector<int> pad_part(2*offset, 0);
     vector<int> image_pad(offset*pad_pixel_per_row + offset , 0);
-
+//#pragma omp parallel //!!Speicherzugriffsfehler
+#pragma omp ordered 
     for( j = 0; j<num_rows; j++) {
         for(i =0; i< pixel_per_row; i++) {
             image_pad.push_back(gray_pic[i + j*pixel_per_row]);
@@ -77,16 +78,15 @@ int main() {
     for(j=0; j< num_rows; j++){        
         for(i = 0; i< pixel_per_row; i++){
 
-            local_sum = 0;
-// #pragma omp parallel for reduction(+ : local_sum)// not wrong but no use
+            //local_sum = 0;
+//#pragma omp parallel for reduction(+ : local_sum)// !!make it slow!
 
             for ( k1 = 0; k1< filter_mask_size; k1++){
                 for ( k2 = 0; k2< filter_mask_size; k2++){                    
                     local_sum += image_pad[i + j*pad_pixel_per_row + k2 +k1*pad_pixel_per_row];
                 }
             }
-
-//#pragma omp taskwait
+//#pragma omp taskwait //!!make it slow!
             local_sum = local_sum * filter_mask -C;                 
         
             if (gray_pic[i+j*pixel_per_row] > local_sum){
