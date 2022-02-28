@@ -7,7 +7,7 @@ it include 3 parts:
   - paper   : 4 page paper about the project
 
 
-## please notice:
+## :bulb: please notice:
 in 3_paper, there are 2 pdf file, <br> 
 the one with (light) is a compressed version of the other one, for easier online preview
 
