@@ -1,5 +1,8 @@
 *.docx
 *.tmp
+.ipynb_checkpoints
+reference
+
 # excutable files
 mrc
 ubl
@@ -16,4 +19,9 @@ pics
 build
 exercise
 output.ppm
+<<<<<<< HEAD
 _testing_with_catch
+=======
+.vscode
+
+>>>>>>> 22f3a0123ceee1bd6483fd237343b8edfea8ff6c

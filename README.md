@@ -3,13 +3,11 @@
 this repository stores my homework/ project of Algorithm Engineering ws21/22 <br>
 it include 3 parts:
   - answer  : answers to the Exam Assignments and solutions to some small coding exercises
-  - project
+  - project : Enhancer for Scanned Images
   - paper   : 4 page paper about the project
 
 
-## Task List
-- [ ] Vorlesung 1 ：  <br>
-      - have question to the parallel monte carlo parallel, why my code doesn't speedup? <br>
-      - Try compiling with optimization flag -Ofast ? how？  <br>
-- [ ] Vorlesung 2
-- [ ] Vorlesung 3
+## :bulb: please notice:
+in 3_paper, there are 2 pdf file, <br> 
+the one with (light) is a compressed version of the other one, for easier/fast online preview
+
