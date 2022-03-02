@@ -6,11 +6,15 @@
 #include <omp.h>
 #include "enhance.h"
 
-// 1: convert in.jpg -compress none out.ppm  // convert jpg into ppm so c++ can easier read and process
-// compile: g++ -Ofast -std=c++11 -march=native -fopenmp main.cpp -o proj
-//  mkdir -p build
-//  cmake -DCMAKE_CXX_COMPOLER=g++ -DCMAKE_BUILD_TYPR=Release ..
-//  cmake --build .
+// convert in.jpg -compress none out.ppm  // convert jpg into ppm so c++ can easier read and process
+// go to 2_project/using_my_lib
+// paste out.ppm in this folder
+// mkdir build
+// cd build
+// ------ make clean  // from the next time
+// cmake ..
+// make
+// ,.proj
 
 
 using namespace std;
