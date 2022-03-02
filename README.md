@@ -10,9 +10,9 @@ it include 3 parts:
 ## :bulb: please notice: <br>
 1. in 2_project, there are 3 part <br>
 
-...1) plain_version is the version of code + CMakeLists.txt <br>
-...2) using_my_lib is the version I try to write a library <br>
-...3) python_code.ipynb is the python code <br>
+...* plain_version is the version of code + CMakeLists.txt ..
+...* using_my_lib is the version I try to write a library ..
+...* python_code.ipynb is the python code ..
 
 2. in 3_paper, there are 2 pdf file, <br> 
 ...the one with (light) is a compressed version of the other one, for easier/fast online preview
