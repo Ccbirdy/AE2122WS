@@ -16,44 +16,24 @@
 using namespace std;
 
 
-// void generate_pad (vector<int>& gray_pic, vector<int>& image_pad, vector<int>& pad_part, 
-//                     int offset, int num_rows, int pixel_per_row, int pad_pixel_per_row) {
-//     int i, j;
-
-// //#pragma omp ordered 
-//     for( j = 0; j<num_rows; j++) {
-//         for(i =0; i< pixel_per_row; i++) {
-//             image_pad.push_back(gray_pic[i + j*pixel_per_row]);
-//         }
-//         image_pad.insert(image_pad.end(), pad_part.begin(), pad_part.end());
-//     }
-// //#pragma omp ordered 
-//     for(i = 0; i< offset*pad_pixel_per_row - offset; i++) {
-//         image_pad.push_back(0);
-//     }  
-
-// }
-
 
 int main() {
     //File input and output streams
     std::ifstream fin("out.ppm");
-    std::ofstream fout("output.ppm");
+    
     //Check if input file was successfully opened
     if (!fin) {
         cout << "Error - Nonexistent Image (.ppm) File" << endl;
         system("pause");
         return -1;  // Error exit
     }
-    //const double start = omp_get_wtime();
+    
     //Declare necessary variables
     string magic_number;
     int pixel_per_row, num_rows, color_depth, red, green, blue;
     //Read in values for the following variables from input file
     fin >> magic_number >> pixel_per_row >> num_rows >> color_depth;
-    //Write the following variables to the output file
-    fout << magic_number << endl;  
-    fout << pixel_per_row << " " << num_rows << endl << color_depth << endl;   
+      
     //Read in input file convert it in gray scale and save in vector
     int i, j, k1, k2, local_sum;
     vector<int> gray_pic(pixel_per_row*num_rows, 0);
@@ -81,10 +61,7 @@ int main() {
 //#pragma omp parallel //!!Speicherzugriffsfehler
 // generate padding vector <image_pad> for vector <gray_pic>
     generate_pad( gray_pic, image_pad, pad_part, 
-                   offset, num_rows, pixel_per_row, pad_pixel_per_row);
-
-
- 
+                   offset, num_rows, pixel_per_row, pad_pixel_per_row); 
     
     cout << "finish generate padding image: " << omp_get_wtime() - start << " seconds" << endl;
     // Convolve
@@ -92,7 +69,6 @@ int main() {
 
     for(j=0; j< num_rows; j++){        
         for(i = 0; i< pixel_per_row; i++){
-
             //local_sum = 0;
 //#pragma omp parallel for reduction(+ : local_sum)// !!make it slow!
 
@@ -118,12 +94,11 @@ int main() {
     cout<< "start writing" << endl;
 
     //Write vector to output file
-    for(const auto &e : gray_pic) fout << e << " "<< e << " "<< e << " ";
+    write_output(gray_pic, magic_number, pixel_per_row, num_rows, color_depth);
 
     cout << "finish writing: " << omp_get_wtime() - start << " seconds" << endl;
 
     //Close files
     fin.close();
-    fout.close();
     return 0;
 }
