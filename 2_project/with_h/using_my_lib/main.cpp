@@ -4,15 +4,19 @@
 #include <iterator>
 #include <vector>
 #include <omp.h>
+#include "enhance.h"
 
 // 1: convert in.jpg -compress none out.ppm  // convert jpg into ppm so c++ can easier read and process
-// compile: g++ -Ofast -std=c++11 -march=native -fopenmp proj.cpp -o proj
+// compile: g++ -Ofast -std=c++11 -march=native -fopenmp main.cpp -o proj
 //  mkdir -p build
 //  cmake -DCMAKE_CXX_COMPOLER=g++ -DCMAKE_BUILD_TYPR=Release ..
 //  cmake --build .
 
 
 using namespace std;
+// int to_gray(int red, int green, int blue){
+//     return int(0.2989 * red + 0.5870 * green + 0.1140 * blue);
+// }
 
 int main() {
     //File input and output streams
@@ -27,7 +31,7 @@ int main() {
     //const double start = omp_get_wtime();
     //Declare necessary variables
     string magic_number;
-    int pixel_per_row, num_rows, color_depth, red, green, blue, gray;
+    int pixel_per_row, num_rows, color_depth, red, green, blue;
     //Read in values for the following variables from input file
     fin >> magic_number >> pixel_per_row >> num_rows >> color_depth;
     //Write the following variables to the output file
@@ -40,16 +44,16 @@ int main() {
     // convert rgb picture into gray scale
     for(i = 0; i < pixel_per_row*num_rows; i++ ){
         fin >> red >> green >> blue;
-        //Covert each pixel to grayscale
-        gray_pic[i] = int(0.2989 * red + 0.5870 * green + 0.1140 * blue); 
+        //Covert each pixel to grayscale               
+        gray_pic[i] = to_gray(red, green, blue); 
     }   
    
     //cout << "finish generate gray_sacle_image: " << omp_get_wtime() - start << " seconds" << endl;
     cout<< " Start pictrure enhancement" << endl;
     //Declare necessary variables for the adaptive_threshold_mean_C 
-    int filter_mask_size = 55, C = 10, pad_pixel_per_row;     // pad_num_rows, 
+    int filter_mask_size = 55, C = 10, pad_num_rows, pad_pixel_per_row;     
     int offset = filter_mask_size/2;
-    //pad_num_rows = num_rows + 2 * offset;
+    pad_num_rows = num_rows + 2 * offset;
     pad_pixel_per_row = pixel_per_row + 2 * offset;
     // build filter mask
     float filter_mask = 1.0 /(filter_mask_size*filter_mask_size);
