@@ -65,30 +65,15 @@ int main() {
     
     cout << "finish generate padding image: " << omp_get_wtime() - start << " seconds" << endl;
     // Convolve
-//#pragma omp parallel for collapse(2) private(local_sum) 
-
+#pragma omp parallel for collapse(2) private(local_sum) 
     for(j=0; j< num_rows; j++){        
         for(i = 0; i< pixel_per_row; i++){
             //local_sum = 0;
 //#pragma omp parallel for reduction(+ : local_sum)// !!make it slow!
-
-            for ( k1 = 0; k1< filter_mask_size; k1++){
-                for ( k2 = 0; k2< filter_mask_size; k2++){                    
-                    local_sum += image_pad[i + j*pad_pixel_per_row + k2 +k1*pad_pixel_per_row];
-                }
-            }
-//#pragma omp taskwait //!!make it slow!
-            local_sum = local_sum * filter_mask -C;                 
-        
-            if (gray_pic[i+j*pixel_per_row] > local_sum){
-            gray_pic[i+j*pixel_per_row] = color_depth;            
-            }
-            else{
-                gray_pic[i+j*pixel_per_row] = 0;
-            }
+            convolve_img(i, j, filter_mask_size, pad_pixel_per_row, filter_mask,
+                        pixel_per_row, color_depth, gray_pic, image_pad, C);
         }        
     }    
-
     
     cout << "finish calculate: " << omp_get_wtime() - start << " seconds" << endl;
     cout<< "start writing" << endl;

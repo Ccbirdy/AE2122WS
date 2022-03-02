@@ -17,6 +17,10 @@ std::vector<int>& generate_pad (std::vector<int>& gray_pic, std::vector<int>& im
 void write_output(std::vector<int>& gray_pic, string magic_number, int pixel_per_row, 
                      int num_rows, int color_depth);
 
+std::vector<int>& convolve_img(int i, int j, int filter_mask_size, int pad_pixel_per_row,
+            float filter_mask, int pixel_per_row, int color_depth,
+            std::vector<int>& gray_pic, std::vector<int>& image_pad, int C);
+
 
 
 #endif /* end of include guard: ENHANCE_H_ */

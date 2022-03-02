@@ -40,3 +40,23 @@ void write_output(std::vector<int>& gray_pic, string magic_number, int pixel_per
     for(const auto &e : gray_pic) fout << e << " "<< e << " "<< e << " ";
     fout.close();
 }
+
+std::vector<int>& convolve_img(int i, int j, int filter_mask_size, int pad_pixel_per_row,
+            float filter_mask, int pixel_per_row, int color_depth,
+            std::vector<int>& gray_pic, std::vector<int>& image_pad, int C){
+    int k1,k2, local_sum = 0;
+    for ( k1 = 0; k1< filter_mask_size; k1++){
+        for ( k2 = 0; k2< filter_mask_size; k2++){                    
+            local_sum += image_pad[i + j*pad_pixel_per_row + k2 +k1*pad_pixel_per_row];
+        }
+    }
+    //#pragma omp taskwait //!!make it slow!
+    local_sum = local_sum * filter_mask -C;                 
+
+    if (gray_pic[i+j*pixel_per_row] > local_sum){
+        gray_pic[i+j*pixel_per_row] = color_depth;            
+        }
+    else{
+        gray_pic[i+j*pixel_per_row] = 0;
+    }
+}
