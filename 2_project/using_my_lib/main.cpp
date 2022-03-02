@@ -14,9 +14,26 @@
 
 
 using namespace std;
-// int to_gray(int red, int green, int blue){
-//     return int(0.2989 * red + 0.5870 * green + 0.1140 * blue);
+
+
+// void generate_pad (vector<int>& gray_pic, vector<int>& image_pad, vector<int>& pad_part, 
+//                     int offset, int num_rows, int pixel_per_row, int pad_pixel_per_row) {
+//     int i, j;
+
+// //#pragma omp ordered 
+//     for( j = 0; j<num_rows; j++) {
+//         for(i =0; i< pixel_per_row; i++) {
+//             image_pad.push_back(gray_pic[i + j*pixel_per_row]);
+//         }
+//         image_pad.insert(image_pad.end(), pad_part.begin(), pad_part.end());
+//     }
+// //#pragma omp ordered 
+//     for(i = 0; i< offset*pad_pixel_per_row - offset; i++) {
+//         image_pad.push_back(0);
+//     }  
+
 // }
+
 
 int main() {
     //File input and output streams
@@ -48,8 +65,8 @@ int main() {
         gray_pic[i] = to_gray(red, green, blue); 
     }   
    
-    //cout << "finish generate gray_sacle_image: " << omp_get_wtime() - start << " seconds" << endl;
-    cout<< " Start pictrure enhancement" << endl;
+    cout << "finish generate gray_sacle_image " << endl;
+    cout << " Start pictrure enhancement" << endl;
     //Declare necessary variables for the adaptive_threshold_mean_C 
     int filter_mask_size = 55, C = 10, pad_num_rows, pad_pixel_per_row;     
     int offset = filter_mask_size/2;
@@ -62,21 +79,16 @@ int main() {
     vector<int> pad_part(2*offset, 0);
     vector<int> image_pad(offset*pad_pixel_per_row + offset , 0);
 //#pragma omp parallel //!!Speicherzugriffsfehler
-#pragma omp ordered 
-    for( j = 0; j<num_rows; j++) {
-        for(i =0; i< pixel_per_row; i++) {
-            image_pad.push_back(gray_pic[i + j*pixel_per_row]);
-        }
-        image_pad.insert(image_pad.end(), pad_part.begin(), pad_part.end());
-    }
-#pragma omp ordered 
-    for(i = 0; i< offset*pad_pixel_per_row - offset; i++) {
-        image_pad.push_back(0);
-    }   
+// generate padding vector <image_pad> for vector <gray_pic>
+    generate_pad( gray_pic, image_pad, pad_part, 
+                   offset, num_rows, pixel_per_row, pad_pixel_per_row);
+
+
+ 
     
     cout << "finish generate padding image: " << omp_get_wtime() - start << " seconds" << endl;
     // Convolve
-#pragma omp parallel for collapse(2) private(local_sum) 
+//#pragma omp parallel for collapse(2) private(local_sum) 
 
     for(j=0; j< num_rows; j++){        
         for(i = 0; i< pixel_per_row; i++){

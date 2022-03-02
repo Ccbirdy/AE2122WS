@@ -22,4 +22,5 @@ exercise
 output.ppm
 testing_with_catch
 .vscode
+hide_testing_with_catch
 
