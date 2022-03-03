@@ -14,5 +14,5 @@ it include 3 parts:
    - python_code.ipynb is the **python** code 
 
 2. in 3_paper, there are 2 pdf file, <br> 
- the one with **(light)** is a compressed version of the other one, for easier/fast online preview
+ 	:hourglass_flowing_sand: the one with **(light)** is a compressed version of the other one, for easier/fast online preview
 
