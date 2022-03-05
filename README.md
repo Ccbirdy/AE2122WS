@@ -15,4 +15,8 @@ it include 3 parts:
 
 2. in 3_paper, there are 2 pdf file, <br> 
  	:hourglass_flowing_sand: the one with **(light)** is a compressed version of the other one, for easier/fast online preview
+  
+## :monocle_face: How to use it?
+if you want to use [plain_version] (https://github.com/Ccbirdy/AE2122WS/tree/main/2_project/plain_version)
+if you want to use [using_my_lib] (https://github.com/Ccbirdy/AE2122WS/tree/main/2_project/using_my_lib) version
 
