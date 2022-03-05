@@ -17,11 +17,20 @@ it include 3 parts:
  	:hourglass_flowing_sand: the one with **(light)** is a compressed version of the other one, for easier/fast online preview
   
 ## :monocle_face: How to use it?
+1. convert in.jpg -compress none out.ppm // convert jpg into ppm so c++ can easier read and process
 
-- if you want to use [plain_version](2_project/plain_version)  <br>
-  1. xxx
-  2. xxx
+- If you want to use [plain_version](2_project/plain_version)  <br>
+  1. put **out.ppm** in this folder 
+  3. mkdir -p build
+  4. cmake -DCMAKE_CXX_COMPOLER=g++ -DCMAKE_BUILD_TYPR=Release ..
+  5. cmake --build .
 
-- if you want to use [using_my_lib](2_project/using_my_lib) version
+- If you want to use [using_my_lib](2_project/using_my_lib) version
+  1. mkdir build
+  2. cd build
+  3. put **out.ppm** in this folder 
+  4. cmake ..
+  5. make
+  6. ./proj
 
 
