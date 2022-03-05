@@ -17,10 +17,8 @@ it include 3 parts:
  	:hourglass_flowing_sand: the one with **(light)** is a compressed version of the other one, for easier/fast online preview
   
 ## :monocle_face: How to use it?
-if you want to use [plain_version] (../2_project/plain_version)
+
+if you want to use [plain_version] (2_project/plain_version)
 if you want to use [using_my_lib] (https://github.com/Ccbirdy/AE2122WS/tree/main/2_project/using_my_lib) version<be>
 
-[I'm a relative reference to a repository file](../blob/master/LICENSE)
-  
-  [I'm an inline-style link](https://www.google.com)
 
