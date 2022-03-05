@@ -19,7 +19,7 @@ it include 3 parts:
 ## :monocle_face: How to use it?
 
 if you want to use [plain_version](2_project/plain_version)  <br>
-[GitHub Pages](https://pages.github.com/)<br>
-if you want to use [using_my_lib] (https://github.com/Ccbirdy/AE2122WS/tree/main/2_project/using_my_lib) version
+
+if you want to use [using_my_lib](2_project/using_my_lib) version
 
 
