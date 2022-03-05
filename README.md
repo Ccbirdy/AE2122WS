@@ -18,8 +18,10 @@ it include 3 parts:
   
 ## :monocle_face: How to use it?
 
-if you want to use [plain_version](2_project/plain_version)  <br>
+- if you want to use [plain_version](2_project/plain_version)  <br>
+  1. xxx
+  2. xxx
 
-if you want to use [using_my_lib](2_project/using_my_lib) version
+- if you want to use [using_my_lib](2_project/using_my_lib) version
 
 
