@@ -18,9 +18,9 @@ it include 3 parts:
   
 ## :monocle_face: How to use the scanned image enhancer?
 0. convert jpg into ppm so c++ can easier read and process
-'''
+```
 convert in.jpg -compress none out.ppm 
-'''
+```
 
 - If you want to use [plain_version](2_project/plain_version)  <br>
   1. put **out.ppm** in this folder 
