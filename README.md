@@ -17,7 +17,7 @@ it include 3 parts:
  	:hourglass_flowing_sand: the one with **(light)** is a compressed version of the other one, for easier/fast online preview
   
 ## :monocle_face: How to use the scanned image enhancer?
-0. 
+0. convert jpg into ppm so c++ can easier read and process
 > convert in.jpg -compress none out.ppm 
 
 - If you want to use [plain_version](2_project/plain_version)  <br>
