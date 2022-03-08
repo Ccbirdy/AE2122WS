@@ -16,7 +16,7 @@ it include 3 parts:
 2. in 3_paper, there are 2 pdf file, <br> 
  	:hourglass_flowing_sand: the one with **(light)** is a compressed version of the other one, for easier/fast online preview
   
-## :monocle_face: How to use it?
+## :monocle_face: How to use the scanned image enhancer?
 convert in.jpg -compress none out.ppm // convert jpg into ppm so c++ can easier read and process
 
 - If you want to use [plain_version](2_project/plain_version)  <br>
